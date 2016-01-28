@@ -1,16 +1,17 @@
 {
   "name": "js-subscribebar",
-  "Description": "The subscribe bar jQuery plugin creates a small bar at the top with a short message and a form to subscribe to the website newsletter.",
-  "keywords": [],
+  "description": "The subscribe bar jQuery plugin creates a small bar at the top with a short message and a form to subscribe to the website newsletter.",
+  "version": "0.0.1",
+  "keywords": [
+    "js"
+  ],
   "homepage": "https://github.com/CharlyBr/jquery-subscribebar",
+  "author": "Charles Viard",
   "license": "MIT",
-  "dependencies": [
-    "js-cookie"
-  ],
-  "devDependencies": {},
-  "main": [
-    "src/jquery.subscribebar.js"
-  ],
+  "dependencies": {
+    "js-cookie": "2.1.0"
+  },
+  "main": "src/jquery.subscribebar.js",
   "ignore": [
     ".gitignore",
     ".jshintrc",
