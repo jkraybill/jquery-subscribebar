@@ -1,0 +1,40 @@
+#subscribe-bar {
+	font-size: 14px;
+	background:#7a9515; 
+	height:auto; 
+	color:#eeeeee; 
+	text-align:center; 
+	padding: 0.5em 0;
+}
+#subscribe-bar form {
+	display: inline;
+}
+#subscribe-bar form input[type=text] {
+	width: 180px;
+}
+#subscribe-bar form input[type=button] {
+	margin: 0 8px;
+}
+#subscribe-bar.fixed {
+    position:fixed; top:0; left:0; width:100%;
+}
+#subscribe-bar.fixed.bottom {
+    bottom:0; top:auto;
+}
+#subscribe-bar span {
+    margin:0 8px; padding:0;
+}
+#subscribe-bar a.jsb-close {
+    float:right;
+    cursor:pointer;
+    font-size: 150%;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 0.5em 10px;      
+    color: #fff; 
+    text-decoration: none;
+}
+#subscribe-bar .jsb-close:before {
+    content: "×";
+}
