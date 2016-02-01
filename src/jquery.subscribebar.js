@@ -1,11 +1,3 @@
-/**
-- prendre en compte le cookie d'acceptation des cookies : accept_cookie
-- url pour le submit
-- nom du champ email / id
-- comment réaffiche-t-on la barre une fois fermée, au bout de combien de temps?
-- handle GA tracker compatibility ga('send') / ...
-*/
-
 "use strict";
 (function($) {
 
@@ -15,11 +7,13 @@
             acceptCookieName: 'accept_cookie',
             acceptCookieValue: 1,
             checkAcceptCookie: false,
-            debug: true,
+            debug: false,
             element: 'body',
             emailClass: "",
             emailPlaceholder: "email adress",
             enableGaEvent: false,
+            emailId: 'email',
+            emailName: 'email',
             formAction: "#",
             formClass: "",
             gaEventCategory: "CTA",
@@ -28,9 +22,10 @@
             gaEventLabel: "top subscribe bar",
             msg: "Stay tuned, subscribe to our newsletter!",
             msgClass: "",
-            nextShow: 30,
+            nextShow: 15,
             submitClass: "",
             submitLabel: "SUBSCRIBE",
+            submitUrl: "#",
         };
 
         var settings = $.extend(defaults, options);
@@ -73,8 +68,8 @@
 
         function showBar() {
             var bMsg = '<span class="'+settings.msgClass+'">'+settings.msg+'</span>';
-            var bForm = '<form id="jsb" action="'+settings.formAction+'" class="'+settings.formClass+'" method="POST">';
-            var bEmail = '<input type="text" placeholder="'+settings.emailPlaceholder+'" class="'+settings.emailClass+'">';
+            var bForm = '<form id="jsb" action="'+settings.formAction+'" class="'+settings.formClass+'" method="POST" url="'+settings.formAction+'">';
+            var bEmail = '<input type="text" id="'+settings.emailId+'" name="'+settings.emailName+'" placeholder="'+settings.emailPlaceholder+'" class="'+settings.emailClass+'">';
             var bSubmit = '<input id="jsbSubscribe" type="button" value="'+settings.submitLabel+'" class="'+settings.submitClass+'">';
             $(settings.element).append('<div id="subscribe-bar" class="fixed">'+bMsg+bForm+bEmail+bSubmit+'</form><a href="#" class="jsb-close"></a></div>');
             return true;
@@ -95,7 +90,7 @@
                     ga('send', 'event', settings.gaEventCategory, settings.gaEventAction, settings.gaEventLabel);
                 }
             }
-            // $("#jsb").submit();
+            $("#jsb").submit();
         });
 
         $(".jsb-close").on('click', function(e){
