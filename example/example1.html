@@ -22,7 +22,9 @@
     <script type="text/javascript" src="../src/jquery.subscribebar.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $.subscribeBar();
+            $.subscribeBar({
+                'formAction': 'submit.php',
+            });
         });
     </script>
     <style>
@@ -41,9 +43,11 @@
         <p>This example is showing the subscribe bar when none of the settings have been altered.
         It is also using the default stylesheet provided with the subscribe bar.</p>
         <p>Code for this example:</p>
-        <code>
-            $.subscribeBar();
-        </code>
+        <code><pre>
+            $.subscribeBar({
+                'formAction': 'submit.php',            
+            });
+        </pre></code>
         <p>See also
         <ul>
         <li><a href="example-bootstrap.html">Bootstrap example</a></li>
