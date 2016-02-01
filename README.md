@@ -27,6 +27,8 @@ And then call subscribeBar to show your bar or not :
 </script>
 ```
 
+See https://charlybr.github.io/jquery-subscribebar/ for live demo.
+
 ## Customize subscribeBar
 
 You can set different things when using subscribeBar.
