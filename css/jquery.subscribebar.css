@@ -1,22 +1,38 @@
 #subscribe-bar {
-	font-size: 14px;
-	background:#7a9515; 
-	height:auto; 
-	color:#eeeeee; 
-	text-align:center; 
-	padding: 0.5em 0;
+    background:#222; 
+    box-shadow: 0 0 30px 0 rgba(0,0,0, 0.3);
+    color:#eeeeee; 
+    font-size: 18px;
+    height:auto; 
+    padding: 20px;
+    text-align:center; 
+    width: 100%;
+    z-index: 1001;
+
+    -webkit-transition: top 500ms ease;
+    -moz-transition: top 500ms ease;
+    -o-transition: top 500ms ease;
+    transition: top 500ms ease;
+
+    /* enable hardware acceleration to fix laggy transitions */
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+
+}
+.scrollActive #subscribe-bar {
+    position: fixed;
 }
 #subscribe-bar form {
-	display: inline;
+    display: inline;
 }
 #subscribe-bar form input[type=text] {
-	width: 180px;
+    width: 200px;
 }
 #subscribe-bar form input[type=button] {
-	margin: 0 8px;
-}
-#subscribe-bar.fixed {
-    position:fixed; top:0; left:0; width:100%;
+    margin: 0 8px;
 }
 #subscribe-bar.fixed.bottom {
     bottom:0; top:auto;
@@ -25,16 +41,46 @@
     margin:0 8px; padding:0;
 }
 #subscribe-bar a.jsb-close {
-    float:right;
-    cursor:pointer;
+    float: right;
+    cursor: pointer;
     font-size: 150%;
     font-weight: bold;
     display: inline-block;
     line-height: 0px;
-    padding: 0.5em 10px;      
+    margin-right: 30px;
+    padding: 0.5em 10px;
     color: #fff; 
     text-decoration: none;
 }
 #subscribe-bar .jsb-close:before {
     content: "×";
+}
+
+#subscribe-bar .input-error {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 10px red;
+}
+
+/* small screens */
+@media only screen and (max-width: 768px) {
+    #subscribe-bar {
+        font-size: 14px; 
+    }
+    #subscribe-bar span {
+        display: block;
+        width: 100%;
+    }
+    #subscribe-bar form input[type=text] {
+        width: 90%;
+        margin: 1em auto;
+    }
+    #subscribe-bar .btn-normal {
+        font-size: 16px;
+        line-height: 28px;
+        height: 28px;
+    }
+    #subscribe-bar .jsb-close:before {
+        font-size: 28px;
+    }
 }

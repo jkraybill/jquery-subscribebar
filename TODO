@@ -1,0 +1,3 @@
+- flag to enable or disable email regex
+- add fixed bottom bar option
+- test ga event with GTM or custom tracker names
