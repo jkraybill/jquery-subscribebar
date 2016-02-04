@@ -25,7 +25,6 @@
             nextShow: 15,
             submitClass: "",
             submitLabel: "SUBSCRIBE",
-            submitUrl: "#",
         };
 
         var settings = $.extend(defaults, options);
@@ -68,10 +67,10 @@
 
         function showBar() {
             var bMsg = '<span class="'+settings.msgClass+'">'+settings.msg+'</span>';
-            var bForm = '<form id="jsb" action="'+settings.formAction+'" class="'+settings.formClass+'" method="POST" url="'+settings.formAction+'">';
+            var bForm = '<form id="jsb" action="'+settings.formAction+'" class="'+settings.formClass+'" method="POST">';
             var bEmail = '<input type="text" id="'+settings.emailId+'" name="'+settings.emailName+'" placeholder="'+settings.emailPlaceholder+'" class="'+settings.emailClass+'">';
             var bSubmit = '<input id="jsbSubscribe" type="button" value="'+settings.submitLabel+'" class="'+settings.submitClass+'">';
-            $(settings.element).append('<div id="subscribe-bar" class="fixed">'+bMsg+bForm+bEmail+bSubmit+'</form><a href="#" class="jsb-close"></a></div>');
+            $(settings.element).prepend('<div id="subscribe-bar" class="fixed">'+bMsg+bForm+bEmail+bSubmit+'</form><a href="#" class="jsb-close"></a></div>');
             return true;
         }
 
@@ -79,7 +78,39 @@
             $('#subscribe-bar').hide(0,function(){$('#subscribe-bar').remove();});
         }
 
+        /**
+         * remove error effect on email field
+         */
+        var emailElt = $("#"+settings.emailId);
+        emailElt.keypress(function() {
+            if (emailElt.hasClass('input-error')) {
+                emailElt.removeClass('input-error');
+            }
+        });
+
+        /**
+         * quick email validation.
+         *
+         * taken from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+         */
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        /**
+         * click on the submit button
+         */
         $("#jsbSubscribe").on('click', function(e){
+            // Check email value
+            var emailElt = $('#'+settings.emailId);
+            var emailValue = emailElt.val();
+            if (! validateEmail(emailValue)) {
+                emailElt.focus();
+                emailElt.addClass('input-error');
+                return false;
+            };
+
             e.preventDefault();
             $.cookie('jsbDidSubscribe', '1', { expires: 3650});
             if (settings.debug) {
@@ -93,6 +124,9 @@
             $("#jsb").submit();
         });
 
+        /**
+         * Closing the subscribing bar
+         */
         $(".jsb-close").on('click', function(e){
             e.preventDefault();
             // We'll show the bar again in x days
@@ -111,16 +145,51 @@
         });
 
         /**
-        * Fonction de suivi des clics sur des liens sortants dans Google Analytics
-        * Cette fonction utilise une chaîne d'URL valide comme argument et se sert de cette chaîne d'URL
-        * comme libellé d'événement. Configurer la méthode de transport sur 'beacon' permet d'envoyer le clic
-        * au moyen de 'navigator.sendBeacon' dans les navigateurs compatibles.
-        */
+         * If you want to track outgoing link with Google Analytics.
+         * Event is sent with the beacon option through 'navigator.sendBeacon' for compatible browsers.
+         */
         var trackSubmit = function(category, action, label, url) {
            ga('send', 'event', category, action, label, {
              'transport': 'beacon',
              'hitCallback': function(){document.location = url;}
            });
         }
+
+        /**
+         * Manage a smooth scroll when switching from relative to fixed bar.
+         */
+
+        // get header height (without border)
+        var getHeaderHeight = $('#subscribe-bar').outerHeight();
+
+        // border height value (make sure to be the same as in your css)
+        var borderAmount = 0;
+
+        // shadow radius number (make sure to be the same as in your css)
+        var shadowAmount = 30;
+
+        // init variable for last scroll position
+        var lastScrollPosition = 0;
+
+        // set negative top position to create the animated header effect
+        $('#subscribe-bar').css('top', '-' + (getHeaderHeight + shadowAmount + borderAmount) + 'px');
+
+        $(window).scroll(function() {
+            var currentScrollPosition = $(window).scrollTop();
+
+            if ($(window).scrollTop() > 2 * (getHeaderHeight + shadowAmount + borderAmount) ) {
+
+                $('body').addClass('scrollActive').css('padding-top', getHeaderHeight);
+                $('#subscribe-bar').css('top', 0);
+
+                if (currentScrollPosition < lastScrollPosition) {
+                    $('#subscribe-bar').css('top', '-' + (getHeaderHeight + shadowAmount + borderAmount) + 'px');
+                }
+                lastScrollPosition = currentScrollPosition;
+
+            } else {
+                $('body').removeClass('scrollActive').css('padding-top', 0);
+            }
+        });
     };
 })(jQuery);
