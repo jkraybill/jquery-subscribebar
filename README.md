@@ -40,13 +40,15 @@ Here are the default values :
   * the name of the "accept cookie"
 * acceptCookieValue: 1
   * the value we should find to be able to show our bar
+* alwaysShow: false
+  * if true, the bar will always show (even if the user dismissed, or subscribed.)
 * debug: false
   * show some debug through console.log()
 * element: 'body'
   * where to inject our html through  $(settings.element).append()
 * emailClass: ""
   * extra css class added to the email input field
-* emailPlaceholder: "email adress"
+* emailPlaceholder: "email address"
   * email input field placeholder
 * emailId: 'email'
   * html id of the email input field
